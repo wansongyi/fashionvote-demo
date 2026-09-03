@@ -1,0 +1,15 @@
+.git
+.gitignore
+.idea
+.vscode
+.venv
+venv
+__pycache__
+*.pyc
+tests
+training
+README.md
+.env*
+credentials
+secrets
+uploads

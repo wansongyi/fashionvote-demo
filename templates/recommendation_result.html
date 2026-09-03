@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ category_name }} prediction · FashionVote{% endblock %}
+{% block content %}
+<section class="result-layout shell">
+  <div class="result-image"><img src="{{ preview }}" alt="Analyzed fashion image"></div>
+  <div class="result-copy">
+    <p class="eyebrow">MODEL PREDICTION</p>
+    <h1>{{ category_name }}</h1>
+    <p class="confidence">{{ "%.1f"|format(prediction.confidence * 100) }}% confidence</p>
+    <div class="probabilities">
+      {% for label, probability in prediction.probabilities.items() %}
+      <div><span>{{ display_names[label] }}</span><strong>{{ "%.1f"|format(probability * 100) }}%</strong><i style="--score: {{ probability * 100 }}%"></i></div>
+      {% endfor %}
+    </div>
+    <p class="model-note">Probabilities cover all three supported classes and sum to 100%.</p>
+    <a class="button primary" href="{{ url_for('recommend') }}">Analyze another image</a>
+  </div>
+</section>
+<section class="recommendations shell">
+  <p class="eyebrow">SIMILAR LOOKS</p><h2>From the recovered collection</h2>
+  <div class="recommendation-grid">
+    {% for item in recommendations %}<img src="{{ url_for('demo_image', category=item.category, filename=item.filename) }}" alt="Recommended {{ item.category_name }} look">{% endfor %}
+  </div>
+</section>
+{% endblock %}

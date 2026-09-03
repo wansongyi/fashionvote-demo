@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}AI prediction · FashionVote{% endblock %}
+{% block content %}
+<section class="page-intro shell narrow">
+  <p class="eyebrow">RESNET34 STYLE READER</p>
+  <h1>Find its fashion signal.</h1>
+  <p>Upload an image for an in-memory prediction, or choose a bundled sample. Uploads are never saved.</p>
+</section>
+{% if error %}<div class="error-banner shell" role="alert">{{ error }}</div>{% endif %}
+<section class="predict-panel shell">
+  <form action="{{ url_for('recommend') }}" method="post" enctype="multipart/form-data" class="upload-box">
+    <label for="image"><strong>Choose a fashion image</strong><span>JPEG or PNG · maximum 5 MB</span></label>
+    <input id="image" name="image" type="file" accept="image/jpeg,image/png">
+    <button class="button primary" type="submit">Analyze image →</button>
+  </form>
+  {% if samples %}
+  <div class="samples">
+    <h2>Or try a sample</h2>
+    <div class="sample-grid">
+      {% for item in samples %}
+      <form action="{{ url_for('recommend') }}" method="post">
+        <input type="hidden" name="sample" value="{{ item.category }}/{{ item.filename }}">
+        <button class="sample-card" type="submit" aria-label="Analyze {{ item.category_name }} sample">
+          <img src="{{ url_for('demo_image', category=item.category, filename=item.filename) }}" alt="{{ item.category_name }} sample">
+          <span>{{ item.category_name }} →</span>
+        </button>
+      </form>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

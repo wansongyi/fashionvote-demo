@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Vote · FashionVote{% endblock %}
+{% block content %}
+<section class="page-intro shell narrow">
+  <p class="eyebrow">PAIRWISE VOTING</p>
+  <h1>Which one wins?</h1>
+  <p>There is no wrong answer. Choose the look you would wear today.</p>
+</section>
+{% if message %}<div class="toast shell" role="status">✓ {{ message }}</div>{% endif %}
+<form class="vote-grid shell" action="{{ url_for('vote') }}" method="post">
+  <input type="hidden" name="left" value="{{ left.category }}/{{ left.filename }}">
+  <input type="hidden" name="right" value="{{ right.category }}/{{ right.filename }}">
+  {% for item in [left, right] %}
+  <article class="vote-card">
+    <div class="image-frame"><img src="{{ url_for('demo_image', category=item.category, filename=item.filename) }}" alt="{{ item.category_name }} fashion look"></div>
+    <div class="vote-meta"><span>{{ item.category_name }}</span><span>{{ totals[item.category] }} demo votes</span></div>
+    <button class="button primary full" type="submit" name="choice" value="{{ item.category }}/{{ item.filename }}">Choose this look <span>♥</span></button>
+  </article>
+  {% endfor %}
+</form>
+<div class="center-link"><a href="{{ url_for('vote') }}">Show me another pair ↻</a></div>
+{% endblock %}

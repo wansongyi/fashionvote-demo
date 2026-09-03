@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FashionVote pairs community taste with visual AI for a playful fashion trend demo.">
+  <title>{% block title %}FashionVote{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('landing') }}" aria-label="FashionVote home">
+      <span class="brand-mark">FV</span><span>FashionVote</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="{{ url_for('landing') }}">Home</a>
+      <a href="{{ url_for('vote') }}">Vote</a>
+      <a href="{{ url_for('recommend') }}">AI prediction</a>
+    </nav>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer>
+    <span>FashionVote</span>
+    <span>Portfolio demo · votes reset when the service restarts</span>
+  </footer>
+</body>
+</html>
