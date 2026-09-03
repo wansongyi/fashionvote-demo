@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PORT=8080
+    PORT=7860
 
 WORKDIR /app
 
@@ -17,5 +17,7 @@ COPY templates ./templates
 
 RUN useradd --create-home --uid 10001 appuser && chown -R appuser:appuser /app
 USER appuser
+
+EXPOSE 7860
 
 CMD exec gunicorn --bind :${PORT} --workers 1 --threads 4 --timeout 120 --access-logfile - app:app

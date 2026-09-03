@@ -1,3 +1,14 @@
+---
+title: FashionVote Demo
+emoji: 👗
+colorFrom: pink
+colorTo: purple
+sdk: docker
+app_port: 7860
+pinned: false
+short_description: Pairwise fashion voting with three-class ResNet34 inference
+---
+
 # FashionVote Demo
 
 A sanitized, database-free portfolio demo recovered from the original FashionVote project.
